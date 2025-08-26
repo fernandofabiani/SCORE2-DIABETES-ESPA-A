@@ -14,5 +14,3 @@ Esta es una versión web estática de la calculadora SCORE2-Diabetes para estima
 - European Heart Journal: https://academic.oup.com/eurheartj/article/44/28/2544/7185610
 - Apéndice con tablas: https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/eurheartj/44/28/10.1093_eurheartj_ehad260/2/appendix_1.pdf
 
-## Cómo publicar
-Puedes subir esta carpeta a GitHub y activar GitHub Pages desde la configuración del repositorio para publicar la app.
