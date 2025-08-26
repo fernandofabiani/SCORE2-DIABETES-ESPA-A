@@ -42,10 +42,132 @@
  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
  .k{color:#64748b}
 </style>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/></head>
-<body>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/><style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    max-width: 800px;
+    margin: auto;
+}
+h1, h2, h3 {
+    color: #2196F3;
+}
+.card {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+.icon {
+    margin-right: 8px;
+    color: #2196F3;
+}
+.risk-bar {
+    height: 20px;
+    background: linear-gradient(to right, green, yellow, red);
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.recommendation {
+    background: #e3f2fd;
+    border-left: 5px solid #2196F3;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+    }
+    input, select {
+        width: 100%;
+    }
+}
+</style><style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    max-width: 900px;
+    margin: auto;
+}
+h1, h2, h3 {
+    color: #2196F3;
+}
+h2 {
+    background-color: #2196F3;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+.card {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+.icon {
+    margin-right: 8px;
+    color: #2196F3;
+}
+.risk-bar {
+    height: 20px;
+    background: linear-gradient(to right, green, yellow, red);
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.recommendation {
+    background: #e3f2fd;
+    border-left: 5px solid #2196F3;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px;
+}
+button:hover {
+    background-color: #45a049;
+}
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+    }
+    input, select {
+        width: 100%;
+    }
+}
+</style><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/></head>
+<body><div class="container"><div class="container">
 <header>
-<h1>SCORE2‑Diabetes (España, región de riesgo <em>bajo</em>) — Estimación de RCV a 10 años</h1>
+<h1 style="color: white; background-color: #2196F3; padding: 10px; border-radius: 8px;">SCORE2‑Diabetes (España, región de riesgo <em>bajo</em>) — Estimación de RCV a 10 años</h1>
 </header>
 <main>
 <p class="note">Esta calculadora usa las <strong>tablas de puntos</strong> del apéndice SCORE2‑Diabetes (hombres/mujeres, 40–69 años) y convierte la suma a <strong>% de riesgo a 10 años</strong> con la tabla para <strong>España</strong> (región de <em>bajo riesgo</em>). Entradas: <span class="units">Colesterol total y c‑HDL</span> en <strong>mg/dL</strong> y <span class="units">HbA1c</span> en <strong>%</strong>. La conversión a categorías (mmol/L y mmol/mol) se realiza internamente.</p>
@@ -251,5 +373,19 @@
   document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
 })();
 </script>
-<div style="margin-top:30px; font-size:0.9em;"><a href="https://academic.oup.com/eurheartj/article/44/28/2544/7185610" target="_blank">🔗 Fuente: European Heart Journal (SCORE2-Diabetes)</a><br/><a href="https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/eurheartj/44/28/10.1093_eurheartj_ehad260/2/appendix_1.pdf?Expires=1759173481&amp;Signature=S~AiiOuh7Kn2RbJOhVH7npJJcqqWva0rs6gF~ypQIAw40eP6kBsKLJDMLZ02ol9uivNVYEdVwZRggmwzIo7X1pTszuGoQK6eKp9TWeq-DuGRSFUYHM3Mh4h2dmflcsvdAqMhTBmSp2rT22vxbQj553vM2FhmfkflJ7quL5yZpfxAeoqEl56dBTlnC43QxSLE2A4sMMMDAA2BJ-vP5kuslAkK9Xp0JdHSiJP7RAiea17ltDTZOWKOIgPi5ghJVrPvBI1t49C~m8n9P0DvOGwDS1I~nTwIubqMAcMNcwnUXGDUV6YYyvKycztfymL2pIh0cclT44dFZSGIgKv4OSmyMQ__&amp;Key-Pair-Id=APKAIE5G5CRDK6RD3PGA" target="_blank">📄 Ver tablas SCORE2-Diabetes (PDF)</a></div></body>
+<div style="margin-top:30px; padding:15px; background-color:#f9f9f9; border:1px solid #ccc; border-radius:8px;"><h3>Recomendaciones de control lipídico según el riesgo cardiovascular (RCV)</h3><ul><li>Riesgo muy alto: el tratamiento debe iniciarse. cLDL &lt; 55 mg/dL y una reducción de al menos un 50% del valor basal. Si hay un segundo evento cardiovascular en 2 años a pesar de estatinas: cLDL &lt; 40 mg/dL.</li><li>Riesgo alto: se debe considerar el tratamiento, evaluando modificadores de riesgo, el riesgo de por vida y las preferencias del paciente. cLDL &lt; 70 mg/dL y una reducción de al menos un 50% del valor basal.</li><li>Riesgo moderado: cLDL &lt; 100 mg/dL.</li><li>Riesgo bajo: se puede considerar cLDL &lt; 116–130 mg/dL.</li></ul><p>En todas las categorías de riesgo, los cambios en el estilo de vida (dieta saludable, actividad física, abandono del tabaco, reducción del consumo de alcohol) pueden ser tan efectivos como el tratamiento farmacológico y sin sus efectos secundarios.</p><p style="font-size:0.9em; color:#555;">Fuente: Guías Europeas de Prevención Vascular de 2021</p></div></div></div><script>
+function actualizarBarraRiesgo() {
+    const riesgoTexto = document.body.innerText.match(/Riesgo a 10 años \(España\): (\d+(\.\d+)?)%/);
+    if (riesgoTexto) {
+        const rcv = parseFloat(riesgoTexto[1]);
+        const barra = document.querySelector('.risk-bar');
+        if (barra) {
+            barra.style.width = Math.min(rcv, 20) * 5 + '%';
+            barra.style.background = rcv >= 10 ? 'red' : rcv >= 5 ? 'orange' : rcv >= 1 ? 'yellow' : 'green';
+        }
+    }
+}
+
+window.onload = actualizarBarraRiesgo;
+</script></body>
 </html>
