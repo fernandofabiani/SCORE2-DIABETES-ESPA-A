@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>SCORE2‑Diabetes (España) – Estimador 10 años</title>
+<style>
+ body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Helvetica,Arial,Noto Sans,sans-serif;margin:0;background:#f7fafc;color:#1a202c}
+ header{background:#2b6cb0;color:#fff;padding:16px 20px}
+ main{max-width:960px;margin:20px auto;padding:0 16px 40px}
+ h1{font-size:1.5rem;margin:0}
+ fieldset{border:1px solid #cbd5e0;border-radius:8px;padding:16px;margin-bottom:16px;background:#fff}
+ legend{padding:0 8px;font-weight:600;color:#2d3748}
+ label{display:block;margin:10px 0 6px;font-weight:600}
+ select,input{padding:8px;font-size:1rem;border:1px solid #cbd5e0;border-radius:6px;width:100%;background:#fff}
+ .row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+ .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+ .note{font-size:.92rem;color:#4a5568}
+ .btn{background:#2b6cb0;color:#fff;border:none;padding:10px 14px;border-radius:6px;cursor:pointer;font-weight:600}
+ .btn.secondary{background:#334155}
+ .result{border-left:6px solid #2b6cb0;background:#ebf8ff;padding:12px 14px;border-radius:6px}
+ .muted{color:#4a5568}
+ .pill{display:inline-block;padding:2px 8px;border-radius:9999px;font-size:.85rem;font-weight:700}
+ .risk-very-high{background:#fee2e2;color:#991b1b}
+ .risk-high{background:#fef3c7;color:#92400e}
+ .risk-moderate{background:#ecfccb;color:#3f6212}
+ .risk-low{background:#e0f2fe;color:#075985}
+ footer{font-size:.9rem;color:#4a5568;margin-top:20px}
+ code{background:#edf2f7;padding:2px 6px;border-radius:4px}
+ @media(max-width:700px){.row,.row3{grid-template-columns:1fr}}
+ .units{font-weight:500;color:#2b6cb0}
+ .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+ /* Print styles */
+ @media print{
+   header, .actions, fieldset, .note, .hide-print{display:none!important}
+   body{background:white}
+   #report{display:block !important}
+   .report-card{box-shadow:none;border:1px solid #cbd5e0}
+ }
+ .report-card{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px}
+ .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ .k{color:#64748b}
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/></head>
+<body>
+<header>
+<h1>SCORE2‑Diabetes (España, región de riesgo <em>bajo</em>) — Estimación de RCV a 10 años</h1>
+</header>
+<main>
+<p class="note">Esta calculadora usa las <strong>tablas de puntos</strong> del apéndice SCORE2‑Diabetes (hombres/mujeres, 40–69 años) y convierte la suma a <strong>% de riesgo a 10 años</strong> con la tabla para <strong>España</strong> (región de <em>bajo riesgo</em>). Entradas: <span class="units">Colesterol total y c‑HDL</span> en <strong>mg/dL</strong> y <span class="units">HbA1c</span> en <strong>%</strong>. La conversión a categorías (mmol/L y mmol/mol) se realiza internamente.</p>
+<fieldset>
+<legend>1) Datos del paciente</legend>
+<div class="row">
+<div>
+<label for="sex">Sexo</label>
+<select id="sex">
+<option value="M">Hombre</option>
+<option value="F">Mujer</option>
+</select>
+</div>
+<div>
+<label for="age">Edad actual (años)</label>
+<input id="age" max="69" min="40" type="number" value="55"/>
+<div class="note">Válido para 40–69 años.</div>
+</div>
+</div>
+</fieldset>
+<fieldset>
+<legend>2) Predictores (seleccione o introduzca valores)</legend>
+<div class="row3">
+<div>
+<label for="dxAge">Edad al diagnóstico de diabetes (años)</label>
+<select id="dxAge">
+<option>30-34</option>
+<option>35-39</option>
+<option>40-44</option>
+<option>45-49</option>
+<option>50-54</option>
+<option>55-59</option>
+<option>60-64</option>
+<option>65-69</option>
+</select>
+</div>
+<div>
+<label for="smoke">Tabaquismo</label>
+<select id="smoke">
+<option value="no">No fumador/a</option>
+<option value="yes">Fumador/a actual</option>
+</select>
+</div>
+<div>
+<label for="sbp">Presión arterial sistólica (PAS, mmHg)</label>
+<select id="sbp">
+<option>100-119</option>
+<option>120-139</option>
+<option>140-159</option>
+<option>&gt;=160</option>
+</select>
+</div>
+<div>
+<label for="tc_mg">Colesterol total (<strong>mg/dL</strong>)</label>
+<input id="tc_mg" max="400" min="70" step="1" type="number" value="190"/>
+</div>
+<div>
+<label for="hdl_mg">Colesterol HDL (<strong>mg/dL</strong>)</label>
+<input id="hdl_mg" max="120" min="5" step="1" type="number" value="45"/>
+</div>
+<div>
+<label for="hba1c_pct">HbA1c (<strong>%</strong>)</label>
+<input id="hba1c_pct" max="14" min="4" step="0.1" type="number" value="7.4"/>
+<div class="note">Conversión interna: <code>mmol/mol = 10,93 × % − 23,5</code>.</div>
+</div>
+<div>
+<label for="egfr">TFGe (mL/min/1.73m²)</label>
+<select id="egfr">
+<option>30-44</option>
+<option>45-59</option>
+<option>60-89</option>
+<option>&gt;=90</option>
+</select>
+</div>
+</div>
+</fieldset>
+<div class="actions">
+<button class="btn" id="calc">Calcular riesgo</button>
+<button class="btn secondary" disabled="" id="printBtn">Imprimir / Guardar PDF</button>
+</div>
+<div id="out" style="margin-top:16px"></div>
+<!-- Printable report -->
+<section class="hide-print" id="report" style="display:none;margin-top:18px">
+<div class="report-card">
+<h2 style="margin:0 0 8px 0">Informe SCORE2‑Diabetes (España)</h2>
+<div class="grid2">
+<div><span class="k">Sexo:</span> <span id="r_sex"></span></div>
+<div><span class="k">Edad:</span> <span id="r_age"></span> años</div>
+<div><span class="k">Edad al dx DM:</span> <span id="r_dx"></span></div>
+<div><span class="k">Tabaquismo:</span> <span id="r_smoke"></span></div>
+<div><span class="k">PAS:</span> <span id="r_sbp"></span> mmHg</div>
+<div><span class="k">Colesterol total:</span> <span id="r_tc"></span> mg/dL</div>
+<div><span class="k">HDL:</span> <span id="r_hdl"></span> mg/dL</div>
+<div><span class="k">HbA1c:</span> <span id="r_hba1c"></span> %</div>
+<div><span class="k">TFGe:</span> <span id="r_egfr"></span> mL/min/1.73m²</div>
+<div><span class="k">Región de riesgo:</span> España (bajo)</div>
+</div>
+<hr style="border:none;border-top:1px solid #e2e8f0;margin:10px 0"/>
+<div id="r_result"></div>
+<p class="note" style="margin-top:8px">Este informe refleja una estimación por categorías basada en el apéndice SCORE2‑Diabetes. Puede diferir hasta ±4 puntos respecto a la ecuación continua oficial.</p>
+<div class="muted" style="margin-top:6px;font-size:.85rem">Generado: <span id="r_date"></span></div>
+</div>
+</section>
+<footer>
+<p class="note">Consejo: tras calcular, pulsa <em>Imprimir / Guardar PDF</em> para obtener un informe con los datos de entrada y el resultado.</p>
+</footer>
+</main>
+<script>
+(function(){
+  const MGDL_TO_MMOLL = 1/38.67; // lípidos
+  function hba1cPctToMmolMol(pct){ return 10.93*pct - 23.5; }
+  function ageBand(age){ if(age>=40 && age<=54) return '40-54'; if(age>=55 && age<=69) return '55-69'; return null; }
+  function colIndex(age){ if(age>=40 && age<=44) return 0; if(age>=45 && age<=49) return 1; if(age>=50 && age<=54) return 2; if(age>=55 && age<=59) return 0; if(age>=60 && age<=64) return 1; if(age>=65 && age<=69) return 2; return 0; }
+  function catTC_mmol(x){ if(x<4.0) return '3.0-3.9'; if(x<5.0) return '4.0-4.9'; if(x<6.0) return '5.0-5.9'; if(x<7.0) return '6.0-6.9'; return '>=7.0'; }
+  function catHDL_mmol(x){ if(x<1.0) return '0.5-0.9'; if(x<1.5) return '1.0-1.4'; return '>=1.5'; }
+  function catHbA1c_mmolmol(x){ if(x<40) return '30-39'; if(x<50) return '40-49'; if(x<60) return '50-59'; if(x<70) return '60-69'; return '>=70'; }
+
+  const pts = {
+    'M|40-54': {'dxAge':{'30-34':[3,3,3],'35-39':[2,2,2],'40-44':[1,1,1],'45-49':[0,0,0],'50-54':[0,0,0]},'smoke':{'no':[-9,-5,0],'yes':[-2,2,6]},'sbp':{'100-119':[-1,-1,-1],'120-139':[1,1,1],'140-159':[3,3,3],'>=160':[6,5,4]},'tc':{'3.0-3.9':[-4,-4,-3],'4.0-4.9':[-3,-2,-2],'5.0-5.9':[-1,-1,-1],'6.0-6.9':[1,1,1],'>=7.0':[3,3,2]},'hdl':{'0.5-0.9':[2,1,1],'1.0-1.4':[0,0,0],'>=1.5':[-1,-1,-1]},'hba1c':{'30-39':[1,1,0],'40-49':[2,2,2],'50-59':[4,3,3],'60-69':[5,5,4],'>=70':[7,6,5]},'egfr':{'30-44':[8,7,6],'45-59':[4,4,3],'60-89':[1,1,1],'>=90':[-1,-1,-1]}},
+    'M|55-69': {'dxAge':{'30-34':[3,3,3],'35-39':[2,2,2],'40-44':[1,1,1],'45-49':[0,0,0],'50-54':[0,0,0],'55-59':[-1,-1,0],'60-64':[0,-2,-2],'65-69':[0,0,-3]},'smoke':{'no':[4,9,13],'yes':[9,13,17]},'sbp':{'100-119':[-1,-1,0],'120-139':[1,1,0],'140-159':[2,2,1],'>=160':[4,3,2]},'tc':{'3.0-3.9':[-3,-3,-2],'4.0-4.9':[-2,-2,-1],'5.0-5.9':[-1,-1,0],'6.0-6.9':[1,1,0],'>=7.0':[2,2,1]},'hdl':{'0.5-0.9':[1,1,1],'1.0-1.4':[0,0,0],'>=1.5':[-1,-1,-1]},'hba1c':{'30-39':[0,0,0],'40-49':[2,1,1],'50-59':[3,2,2],'60-69':[4,3,3],'>=70':[5,4,4]},'egfr':{'30-44':[6,5,4],'45-59':[3,3,2],'60-89':[1,1,1],'>=90':[0,0,0]}},
+    'F|40-54': {'dxAge':{'30-34':[4,4,4],'35-39':[3,3,3],'40-44':[2,2,2],'45-49':[0,1,1],'50-54':[0,0,-1]},'smoke':{'no':[-11,-6,0],'yes':[-1,3,8]},'sbp':{'100-119':[-1,-1,-1],'120-139':[1,1,1],'140-159':[3,3,3],'>=160':[5,5,4]},'tc':{'3.0-3.9':[-5,-4,-4],'4.0-4.9':[-3,-2,-2],'5.0-5.9':[-1,-1,-1],'6.0-6.9':[1,1,1],'>=7.0':[3,3,3]},'hdl':{'0.5-0.9':[2,2,2],'1.0-1.4':[0,0,0],'>=1.5':[-2,-2,-2]},'hba1c':{'30-39':[1,1,1],'40-49':[3,2,2],'50-59':[5,4,4],'60-69':[7,6,5],'>=70':[9,8,7]},'egfr':{'30-44':[9,8,7],'45-59':[5,5,4],'60-89':[2,1,1],'>=90':[-1,-1,-1]}},
+    'F|55-69': {'dxAge':{'30-34':[4,4,4],'35-39':[3,3,3],'40-44':[2,2,2],'45-49':[1,1,1],'50-54':[-1,-1,-1],'55-59':[-2,-2,-2],'60-64':[0,-3,-3],'65-69':[0,0,-4]},'smoke':{'no':[5,11,16],'yes':[12,16,21]},'sbp':{'100-119':[-1,-1,-1],'120-139':[1,1,1],'140-159':[2,2,2],'>=160':[4,3,3]},'tc':{'3.0-3.9':[-3,-3,-2],'4.0-4.9':[-2,-2,-1],'5.0-5.9':[-1,-1,0],'6.0-6.9':[1,1,0],'>=7.0':[2,2,1]},'hdl':{'0.5-0.9':[2,2,1],'1.0-1.4':[0,0,0],'>=1.5':[-1,-1,-1]},'hba1c':{'30-39':[1,0,0],'40-49':[2,2,1],'50-59':[3,3,2],'60-69':[5,4,3],'>=70':[6,5,4]},'egfr':{'30-44':[6,5,4],'45-59':[3,3,2],'60-89':[1,1,1],'>=90':[0,0,0]}}
+  };
+
+  const riskMap = {
+    'M|40-54': {min:-15, arr:[2,2,2,2,2,2,3,3,3,3,3,4,4,4,5,5,5,6,6,7,7,8,8,9,10,10,11,12,13,14,15,16,17,18,19,20,22,23,25,27,28,30,32,34,36,38]},
+    'M|55-69': {min:-4,  arr:[4,4,4,5,5,5,6,6,7,7,8,8,9,10,10,11,12,13,14,15,16,17,18,19,20,22,23,25,27,28,30,32,34,36,38,41,43,45,48]},
+    'F|40-54': {min:-14, arr:[1,1,1,2,2,2,2,2,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,6,6,7,7,7,8,9,9,10,10,11,12,13,14,15,15,17,18,19,20,21,23,24,26,27]},
+    'F|55-69': {min:-1,  arr:[3,3,4,4,4,4,5,5,5,6,6,7,7,7,8,9,9,10,10,11,12,13,14,15,15,17,18,19,20,21,23,24,26,27,29,31,32,34,36,38]}
+  };
+
+  function compute(){
+    const sex = document.getElementById('sex').value;
+    const age = parseInt(document.getElementById('age').value,10);
+    const band = ageBand(age);
+    const key = sex + '|' + band;
+    if(!band || !pts[key]){ document.getElementById('out').innerHTML = '<div class="result">Edad fuera de rango (40–69 años) o combinación no soportada.</div>'; return; }
+    const col = colIndex(age);
+
+    const dx = document.getElementById('dxAge').value;
+    const smoke = document.getElementById('smoke').value;
+    const sbp = document.getElementById('sbp').value;
+    const tc_mg = parseFloat(document.getElementById('tc_mg').value);
+    const hdl_mg = parseFloat(document.getElementById('hdl_mg').value);
+    const hba1c_pct = parseFloat(document.getElementById('hba1c_pct').value);
+    const egfr = document.getElementById('egfr').value;
+
+    if(!isFinite(tc_mg) || !isFinite(hdl_mg) || !isFinite(hba1c_pct)){
+      document.getElementById('out').innerHTML = '<div class="result">Revise que ha introducido valores numéricos válidos para colesterol y HbA1c.</div>'; return;
+    }
+
+    const tc_mmol = tc_mg * MGDL_TO_MMOLL;
+    const hdl_mmol = hdl_mg * MGDL_TO_MMOLL;
+    const hba1c_mmolmol = hba1cPctToMmolMol(hba1c_pct);
+
+    const tcCat = catTC_mmol(tc_mmol);
+    const hdlCat = catHDL_mmol(hdl_mmol);
+    const hba1cCat = catHbA1c_mmolmol(hba1c_mmolmol);
+
+    let total = 0;
+    function add(pred,cat){ const v = pts[key][pred][cat]; if(v){ total += v[col]; } }
+    add('dxAge',dx); add('smoke',smoke); add('sbp',sbp); add('tc',tcCat); add('hdl',hdlCat); add('hba1c',hba1cCat); add('egfr',egfr);
+
+    const map = riskMap[key]; let riskPct=null; if(map){ const idx = total - map.min; if(idx>=0 && idx<map.arr.length) riskPct = map.arr[idx]; }
+
+    let html = '<div class="result">';
+    html += `<strong>Total de puntos:</strong> ${total}`;
+    if(riskPct!==null){
+      let catTxt='';
+      if(age<50){ catTxt = riskPct>=7.5 ? 'Muy alto' : (riskPct>=2.5 ? 'Alto' : 'Bajo‑moderado'); }
+      else { catTxt = riskPct>=10 ? 'Muy alto' : (riskPct>=5 ? 'Alto' : 'Bajo‑moderado'); }
+      const pillClass = riskPct>= (age<50?7.5:10) ? 'risk-very-high' : (riskPct>= (age<50?2.5:5) ? 'risk-high' : 'risk-moderate');
+      html += `<br><strong>Riesgo a 10 años (España):</strong> ${riskPct}% <span class="pill ${pillClass}">${catTxt}</span>`;
+    } else { html += '<br><em>No hay conversión a % para esta suma de puntos en el mapa cargado.</em>'; }
+    html += '<hr style="border:none;border-top:1px solid #cbd5e0;margin:10px 0">';
+    html += '<div class="note">Categorías internas usadas: ' +
+            `TC ${tcCat} (entrada ${tc_mg.toFixed(0)} mg/dL → ${(tc_mmol).toFixed(2)} mmol/L), ` +
+            `HDL ${hdlCat} (entrada ${hdl_mg.toFixed(0)} mg/dL → ${(hdl_mmol).toFixed(2)} mmol/L), ` +
+            `HbA1c ${hba1cCat} (entrada ${hba1c_pct.toFixed(1)}% → ${(hba1c_mmolmol).toFixed(0)} mmol/mol).</div>`;
+    html += '</div>';
+    document.getElementById('out').innerHTML = html;
+
+    // Fill printable report
+    document.getElementById('r_sex').textContent = (sex==='M'?'Hombre':'Mujer');
+    document.getElementById('r_age').textContent = age;
+    document.getElementById('r_dx').textContent = dx;
+    document.getElementById('r_smoke').textContent = (smoke==='yes'?'Fumador/a actual':'No fumador/a');
+    document.getElementById('r_sbp').textContent = sbp;
+    document.getElementById('r_tc').textContent = tc_mg.toFixed(0);
+    document.getElementById('r_hdl').textContent = hdl_mg.toFixed(0);
+    document.getElementById('r_hba1c').textContent = hba1c_pct.toFixed(1);
+    document.getElementById('r_egfr').textContent = egfr;
+    const now = new Date();
+    document.getElementById('r_date').textContent = now.toLocaleString();
+    document.getElementById('r_result').innerHTML = document.getElementById('out').innerHTML;
+
+    // Enable print and show report preview section
+    document.getElementById('report').style.display = 'block';
+    document.getElementById('printBtn').disabled = false;
+  }
+
+  document.getElementById('calc').addEventListener('click', compute);
+  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+})();
+</script>
+<div style="margin-top:30px; font-size:0.9em;"><a href="https://academic.oup.com/eurheartj/article/44/28/2544/7185610" target="_blank">🔗 Fuente: European Heart Journal (SCORE2-Diabetes)</a><br/><a href="https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/eurheartj/44/28/10.1093_eurheartj_ehad260/2/appendix_1.pdf?Expires=1759173481&amp;Signature=S~AiiOuh7Kn2RbJOhVH7npJJcqqWva0rs6gF~ypQIAw40eP6kBsKLJDMLZ02ol9uivNVYEdVwZRggmwzIo7X1pTszuGoQK6eKp9TWeq-DuGRSFUYHM3Mh4h2dmflcsvdAqMhTBmSp2rT22vxbQj553vM2FhmfkflJ7quL5yZpfxAeoqEl56dBTlnC43QxSLE2A4sMMMDAA2BJ-vP5kuslAkK9Xp0JdHSiJP7RAiea17ltDTZOWKOIgPi5ghJVrPvBI1t49C~m8n9P0DvOGwDS1I~nTwIubqMAcMNcwnUXGDUV6YYyvKycztfymL2pIh0cclT44dFZSGIgKv4OSmyMQ__&amp;Key-Pair-Id=APKAIE5G5CRDK6RD3PGA" target="_blank">📄 Ver tablas SCORE2-Diabetes (PDF)</a></div></body>
+</html>
